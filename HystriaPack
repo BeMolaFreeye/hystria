@@ -1,4 +1,4 @@
-{
+
   "log": {
     "level": "warn",
     "output": "box.log",
@@ -8,7 +8,7 @@
     "servers": [
       {
         "tag": "dns-remote",
-        "address": "udp://8.26.56.26",
+        "address": "udp://1.1.1.1",
         "address_resolver": "dns-direct"
       },
       {
@@ -34,6 +34,22 @@
     ],
     "rules": [
       {
+        "domain": [
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6h.newbitplatform.com",
+          "s6hc.newbitplatform.com",
+          "s6hc.newbitplatform.com"
+        ],
+        "server": "dns-direct"
+      },
+      {
         "domain": "cp.cloudflare.com",
         "server": "dns-remote",
         "rewrite_ttl": 3000
@@ -49,23 +65,36 @@
     "final": "dns-remote",
     "static_ips": {
       "sky.rethinkdns.com": [
-        "104.17.147.22",
         "104.17.148.22",
-        "188.114.96.3",
-        "188.114.97.3"
+        "104.17.147.22",
+        "104.21.83.62",
+        "172.67.214.246",
+        "2606:4700:3030::6815:533e",
+        "2606:4700:3030::ac43:d6f6"
       ]
     },
     "independent_cache": true
   },
   "inbounds": [
     {
+      "type": "tun",
+      "tag": "tun-in",
+      "mtu": 9000,
+      "inet4_address": "172.19.0.1/28",
+      "auto_route": true,
+      "strict_route": true,
+      "endpoint_independent_nat": true,
+      "stack": "mixed",
+      "sniff": true,
+      "sniff_override_destination": true
+    },
+    {
       "type": "mixed",
       "tag": "mixed-in",
       "listen": "127.0.0.1",
       "listen_port": 12334,
       "sniff": true,
-      "sniff_override_destination": true,
-      "set_system_proxy": true
+      "sniff_override_destination": true
     },
     {
       "type": "direct",
@@ -80,9 +109,46 @@
       "tag": "select",
       "outbounds": [
         "auto",
-        "Hys2_8",
-        "Hys2+TLS+ECH_8",
-        "Hys2+ECH+PQS_8"
+        "hivsti.com reality XTLS direct vless § 443 2",
+        "s6h.newbitplatform.com tls_h2 WS direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 WS direct trojan § 443 3",
+        "s6h.newbitplatform.com tls_h2 httpupgrade direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 splithttp direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 splithttp direct trojan § 443 3",
+        "s6h.newbitplatform.com tls_h2 grpc direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 grpc direct trojan § 443 3",
+        "s6h.newbitplatform.com tls WS direct vless § 443 3",
+        "s6h.newbitplatform.com tls WS direct trojan § 443 3",
+        "s6h.newbitplatform.com tls httpupgrade direct vless § 443 3",
+        "s6h.newbitplatform.com tls splithttp direct vless § 443 3",
+        "s6h.newbitplatform.com tls splithttp direct trojan § 443 3",
+        "s6h.newbitplatform.com tls grpc direct vless § 443 3",
+        "s6h.newbitplatform.com tls grpc direct trojan § 443 3",
+        "s6h.newbitplatform.com ShadowSocks2022 § 48353 3",
+        "s6h.newbitplatform.com ShadowTLS § 443 3",
+        "s6h.newbitplatform.com SSH § 47384 3",
+        "s6h.newbitplatform.com SSH § 47384 3+UDP",
+        "s6h.newbitplatform.com WireGuard § 45656 3",
+        "s6h.newbitplatform.com h3_quic splithttp direct vless § 443 3",
+        "s6h.newbitplatform.com h3_quic splithttp direct trojan § 443 3",
+        "s6h.newbitplatform.com TUIC § 54620 3",
+        "s6h.newbitplatform.com Hysteria2 § 35857 3",
+        "s6hc.newbitplatform.com tls_h2 WS CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 WS CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls_h2 httpupgrade CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 splithttp CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 splithttp CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls_h2 grpc CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 grpc CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls WS CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls WS CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls httpupgrade CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls splithttp CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls splithttp CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls grpc CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls grpc CDN trojan § 443 4",
+        "s6hc.newbitplatform.com h3_quic splithttp CDN vless § 443 4",
+        "s6hc.newbitplatform.com h3_quic splithttp CDN trojan § 443 4"
       ],
       "default": "auto"
     },
@@ -90,70 +156,1387 @@
       "type": "urltest",
       "tag": "auto",
       "outbounds": [
-        "Hys2_8",
-        "Hys2+TLS+ECH_8",
-        "Hys2+ECH+PQS_8"
+        "hivsti.com reality XTLS direct vless § 443 2",
+        "s6h.newbitplatform.com tls_h2 WS direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 WS direct trojan § 443 3",
+        "s6h.newbitplatform.com tls_h2 httpupgrade direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 splithttp direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 splithttp direct trojan § 443 3",
+        "s6h.newbitplatform.com tls_h2 grpc direct vless § 443 3",
+        "s6h.newbitplatform.com tls_h2 grpc direct trojan § 443 3",
+        "s6h.newbitplatform.com tls WS direct vless § 443 3",
+        "s6h.newbitplatform.com tls WS direct trojan § 443 3",
+        "s6h.newbitplatform.com tls httpupgrade direct vless § 443 3",
+        "s6h.newbitplatform.com tls splithttp direct vless § 443 3",
+        "s6h.newbitplatform.com tls splithttp direct trojan § 443 3",
+        "s6h.newbitplatform.com tls grpc direct vless § 443 3",
+        "s6h.newbitplatform.com tls grpc direct trojan § 443 3",
+        "s6h.newbitplatform.com ShadowSocks2022 § 48353 3",
+        "s6h.newbitplatform.com ShadowTLS § 443 3",
+        "s6h.newbitplatform.com SSH § 47384 3",
+        "s6h.newbitplatform.com SSH § 47384 3+UDP",
+        "s6h.newbitplatform.com WireGuard § 45656 3",
+        "s6h.newbitplatform.com h3_quic splithttp direct vless § 443 3",
+        "s6h.newbitplatform.com h3_quic splithttp direct trojan § 443 3",
+        "s6h.newbitplatform.com TUIC § 54620 3",
+        "s6h.newbitplatform.com Hysteria2 § 35857 3",
+        "s6hc.newbitplatform.com tls_h2 WS CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 WS CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls_h2 httpupgrade CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 splithttp CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 splithttp CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls_h2 grpc CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls_h2 grpc CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls WS CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls WS CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls httpupgrade CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls splithttp CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls splithttp CDN trojan § 443 4",
+        "s6hc.newbitplatform.com tls grpc CDN vless § 443 4",
+        "s6hc.newbitplatform.com tls grpc CDN trojan § 443 4",
+        "s6hc.newbitplatform.com h3_quic splithttp CDN vless § 443 4",
+        "s6hc.newbitplatform.com h3_quic splithttp CDN trojan § 443 4"
       ],
       "url": "http://connectivitycheck.gstatic.com/generate_204",
       "interval": "10m0s",
       "idle_timeout": "1h40m0s"
     },
     {
-      "type": "hysteria2",
-      "tag": "Hys2_8",
-      "server": "65.21.158.249",
-      "server_port": 2053,
-      "password": "rs3h2c9n8X",
+      "type": "vless",
+      "tag": "hivsti.com reality XTLS direct vless § 443 2",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "flow": "xtls-rprx-vision",
       "tls": {
         "enabled": true,
-        "insecure": true
+        "server_name": "hivsti.com",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "fwzUynQsxi9WJBrMn-FnbB7txQbKeYYyV8U3_z-FzBc",
+          "short_id": "f78c"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "vless",
+      "tag": "s6h.newbitplatform.com tls_h2 WS direct vless § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/gydbh8BquVe80zfWMNOapZMYk",
+        "headers": {
+          "Host": "s6h.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6h.newbitplatform.com tls_h2 WS direct trojan § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/xueGC1HWMNOapZMYk",
+        "headers": {
+          "Host": "s6h.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
       }
     },
     {
-      "type": "hysteria2",
-      "tag": "Hys2+TLS+ECH_8",
-      "server": "65.21.158.249",
-      "server_port": 2083,
-      "obfs": {
-        "type": "salamander",
-        "password": "Vk@l@b@shV"
+      "type": "vless",
+      "tag": "s6h.newbitplatform.com tls_h2 httpupgrade direct vless § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
       },
-      "password": "rs3h2c9n8X",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
       "tls": {
         "enabled": true,
-        "insecure": true,
-        "ech": {
-          "config": [
-            "-----BEGIN ECH CONFIGS-----",
-            "ADn+DQA1AAAgACCY3mxO+in7sd7MY5QDXtBKb6bcQ5sOmy/Cd3v1RPsKWQAIAAEA",
-            "AQABAAMAAicnAAA=",
-            "-----END ECH CONFIGS-----"
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "path": "/gydbh8BquVe80zfmGzJdpigOw",
+        "headers": {
+          "Host": "s6h.newbitplatform.com"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "xray",
+      "tag": "s6h.newbitplatform.com tls_h2 splithttp direct vless § 443 3",
+      "xray_outbound_raw": {
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "s6h.newbitplatform.com",
+              "port": 443,
+              "users": [
+                {
+                  "encryption": "none",
+                  "flow": "",
+                  "id": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+                  "level": 8
+                }
+              ]
+            }
           ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6h.newbitplatform.com",
+            "path": "/gydbh8BquVe80zfdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h2"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6h.newbitplatform.com"
+          }
+        },
+        "tag": "s6h.newbitplatform.com tls_h2 splithttp direct vless"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "xray",
+      "tag": "s6h.newbitplatform.com tls_h2 splithttp direct trojan § 443 3",
+      "xray_outbound_raw": {
+        "protocol": "trojan",
+        "settings": {
+          "servers": [
+            {
+              "address": "s6h.newbitplatform.com",
+              "level": 8,
+              "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+              "port": 443
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6h.newbitplatform.com",
+            "path": "/xueGC1HdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h2"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6h.newbitplatform.com"
+          }
+        },
+        "tag": "s6h.newbitplatform.com tls_h2 splithttp direct trojan"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "vless",
+      "tag": "s6h.newbitplatform.com tls_h2 grpc direct vless § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "gydbh8BquVe80zfh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6h.newbitplatform.com tls_h2 grpc direct trojan § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "xueGC1Hh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "s6h.newbitplatform.com tls WS direct vless § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/gydbh8BquVe80zfWMNOapZMYk",
+        "headers": {
+          "Host": "s6h.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6h.newbitplatform.com tls WS direct trojan § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/xueGC1HWMNOapZMYk",
+        "headers": {
+          "Host": "s6h.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "s6h.newbitplatform.com tls httpupgrade direct vless § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "path": "/gydbh8BquVe80zfmGzJdpigOw",
+        "headers": {
+          "Host": "s6h.newbitplatform.com"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "xray",
+      "tag": "s6h.newbitplatform.com tls splithttp direct vless § 443 3",
+      "xray_outbound_raw": {
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "s6h.newbitplatform.com",
+              "port": 443,
+              "users": [
+                {
+                  "encryption": "none",
+                  "flow": "",
+                  "id": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6h.newbitplatform.com",
+            "path": "/gydbh8BquVe80zfdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "http/1.1"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6h.newbitplatform.com"
+          }
+        },
+        "tag": "s6h.newbitplatform.com tls splithttp direct vless"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "xray",
+      "tag": "s6h.newbitplatform.com tls splithttp direct trojan § 443 3",
+      "xray_outbound_raw": {
+        "protocol": "trojan",
+        "settings": {
+          "servers": [
+            {
+              "address": "s6h.newbitplatform.com",
+              "level": 8,
+              "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+              "port": 443
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6h.newbitplatform.com",
+            "path": "/xueGC1HdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "http/1.1"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6h.newbitplatform.com"
+          }
+        },
+        "tag": "s6h.newbitplatform.com tls splithttp direct trojan"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "vless",
+      "tag": "s6h.newbitplatform.com tls grpc direct vless § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "gydbh8BquVe80zfh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6h.newbitplatform.com tls grpc direct trojan § 443 3",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "xueGC1Hh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      }
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "s6h.newbitplatform.com ShadowSocks2022 § 48353 3",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 48353,
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "YzIxYjBkMjg2NDgxNDBmOGJlNmZkZGYxZDA2OTdhMzI=:ZDI0YWI5YWZjMWM3NDE4M2E2OGQ0YTcwOGU0NWU5Yzk=",
+      "udp_over_tcp": true
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "s6h.newbitplatform.com ShadowTLS § 443 3",
+      "detour": "s6h.newbitplatform.com ShadowTLS § 443 3_shadowtls-out §hide§",
+      "server": "",
+      "server_port": 0,
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "YzIxYjBkMjg2NDgxNDBmOGJlNmZkZGYxZDA2OTdhMzI=:ZDI0YWI5YWZjMWM3NDE4M2E2OGQ0YTcwOGU0NWU5Yzk=",
+      "udp_over_tcp": true
+    },
+    {
+      "type": "shadowtls",
+      "tag": "s6h.newbitplatform.com ShadowTLS § 443 3_shadowtls-out §hide§",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 443,
+      "version": 3,
+      "password": "c21b0d28-6481-40f8-be6f-ddf1d0697a32",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.theregister.co.uk",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
         }
       }
     },
     {
-      "type": "hysteria2",
-      "tag": "Hys2+ECH+PQS_8",
-      "server": "65.21.158.249",
-      "server_port": 2096,
-      "obfs": {
-        "type": "salamander",
-        "password": "Vk@l@b@shV"
+      "type": "ssh",
+      "tag": "s6h.newbitplatform.com SSH § 47384 3",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 47384,
+      "user": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "private_key": "-----BEGIN OPENSSH PRIVATE KEY-----\nb3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZWQyNTUx\nOQAAACDeh9xeFuuUqLNXpD9RrcEax66lSLppQgtXYMx1JvciLgAAAIjMaDUkzGg1JAAAAAtzc2gt\nZWQyNTUxOQAAACDeh9xeFuuUqLNXpD9RrcEax66lSLppQgtXYMx1JvciLgAAAEDYiyrvk7yD678i\nQrghMjsSuJDl176rniJ261pDodL9m96H3F4W65Sos1ekP1GtwRrHrqVIumlCC1dgzHUm9yIuAAAA\nAAECAwQF\n-----END OPENSSH PRIVATE KEY-----\n",
+      "host_key": [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDwigFqgwXiTiw1eHEhkXb12nsbmZq9On0lyfJEu5NaZ",
+        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPWlABRDqQcagOwS8fUFzm/ntU6QVsxCEOZBTWI4L46sOalVeaE57i+Va6jq4YIh0QBBXQIkygi93Nx+iPC/ca8="
+      ]
+    },
+    {
+      "type": "socks",
+      "tag": "s6h.newbitplatform.com SSH § 47384 3+UDP",
+      "detour": "s6h.newbitplatform.com SSH § 47384 3",
+      "server": "127.0.0.1",
+      "server_port": 2000,
+      "version": "5",
+      "network": "tcp",
+      "udp_over_tcp": true
+    },
+    {
+      "type": "wireguard",
+      "tag": "s6h.newbitplatform.com WireGuard § 45656 3",
+      "local_address": "10.90.0.2/32",
+      "private_key": "qOzR1EDqTdT/t6+kCEEYtx8Vh6q8NSuXKMnsLv29eEg=",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 45656,
+      "peer_public_key": "QK/hnkY3zZVbjG5owCgypbOMBQ+2nvXvsRguv3LWTls=",
+      "pre_shared_key": "kkiR2968+Uw743VzbYDsz7u0MyMUMJ3OfdHLMJshf0o=",
+      "mtu": 1380,
+      "fake_packets": "0-0"
+    },
+    {
+      "type": "xray",
+      "tag": "s6h.newbitplatform.com h3_quic splithttp direct vless § 443 3",
+      "xray_outbound_raw": {
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "s6h.newbitplatform.com",
+              "port": 443,
+              "users": [
+                {
+                  "encryption": "none",
+                  "flow": "",
+                  "id": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6h.newbitplatform.com",
+            "path": "/gydbh8BquVe80zfdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h3"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6h.newbitplatform.com"
+          }
+        },
+        "tag": "s6h.newbitplatform.com h3_quic splithttp direct vless"
       },
-      "password": "rs3h2c9n8X",
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "xray",
+      "tag": "s6h.newbitplatform.com h3_quic splithttp direct trojan § 443 3",
+      "xray_outbound_raw": {
+        "protocol": "trojan",
+        "settings": {
+          "servers": [
+            {
+              "address": "s6h.newbitplatform.com",
+              "level": 8,
+              "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+              "port": 443
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6h.newbitplatform.com",
+            "path": "/xueGC1HdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h3"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6h.newbitplatform.com"
+          }
+        },
+        "tag": "s6h.newbitplatform.com h3_quic splithttp direct trojan"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "tuic",
+      "tag": "s6h.newbitplatform.com TUIC § 54620 3",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 54620,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "congestion_control": "cubic",
+      "udp_relay_mode": "native",
+      "zero_rtt_handshake": true,
+      "heartbeat": "10s",
       "tls": {
         "enabled": true,
-        "insecure": true,
-        "ech": {
-          "config": [
-            "-----BEGIN ECH CONFIGS-----",
-            "ADn+DQA1AAAgACBHarYnz7B4vMzTNoJOhyproen7n22Zh+8dlLZ7zushfwAIAAEA",
-            "AQABAAMAAicnAAA=",
-            "-----END ECH CONFIGS-----"
-          ]
-        }
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h3"
       }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "s6h.newbitplatform.com Hysteria2 § 35857 3",
+      "server": "s6h.newbitplatform.com",
+      "server_port": 35857,
+      "obfs": {
+        "type": "salamander",
+        "password": "OVMxbD6RD4iwbYJm4"
+      },
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6h.newbitplatform.com",
+        "alpn": "h3"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "s6hc.newbitplatform.com tls_h2 WS CDN vless § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6Hc.newBITPLATfORm.com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "S6HC.nEwbItPLATForm.com",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/gydbh8BquVe80zfWMNOapZMYk",
+        "headers": {
+          "Host": "s6hc.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6hc.newbitplatform.com tls_h2 WS CDN trojan § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "S6hc.NeWbitplATfORm.cOM",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "S6HC.NEwbitPLAtfORm.coM",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/xueGC1HWMNOapZMYk",
+        "headers": {
+          "Host": "s6hc.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "s6hc.newbitplatform.com tls_h2 httpupgrade CDN vless § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "S6Hc.nEwBitPLATfOrM.CoM",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6Hc.NEwbItPLATForm.coM",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "path": "/gydbh8BquVe80zfmGzJdpigOw",
+        "headers": {
+          "Host": "s6hc.newbitplatform.com"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "xray",
+      "tag": "s6hc.newbitplatform.com tls_h2 splithttp CDN vless § 443 4",
+      "xray_outbound_raw": {
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "S6hC.nEwbITplatFOrm.Com",
+              "port": 443,
+              "users": [
+                {
+                  "encryption": "none",
+                  "flow": "",
+                  "id": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6hc.newbitplatform.com",
+            "path": "/gydbh8BquVe80zfdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h2"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "S6Hc.NeWbiTPLAtfOrm.COm"
+          }
+        },
+        "tag": "s6hc.newbitplatform.com tls_h2 splithttp CDN vless"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-100",
+        "interval": "50-200",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "xray",
+      "tag": "s6hc.newbitplatform.com tls_h2 splithttp CDN trojan § 443 4",
+      "xray_outbound_raw": {
+        "protocol": "trojan",
+        "settings": {
+          "servers": [
+            {
+              "address": "S6HC.NewbITplatforM.CoM",
+              "level": 8,
+              "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+              "port": 443
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6hc.newbitplatform.com",
+            "path": "/xueGC1HdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h2"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6Hc.nEWbiTPlaTFoRM.COM"
+          }
+        },
+        "tag": "s6hc.newbitplatform.com tls_h2 splithttp CDN trojan"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-100",
+        "interval": "50-200",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "vless",
+      "tag": "s6hc.newbitplatform.com tls_h2 grpc CDN vless § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6hc.NeWbitPlATfoRm.CoM",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "S6Hc.neWBiTPLATfORM.cOm",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "gydbh8BquVe80zfh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6hc.newbitplatform.com tls_h2 grpc CDN trojan § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6Hc.NeWbitPLAtform.CoM",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6hc.NewbITplatfORM.cOm",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "xueGC1Hh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "s6hc.newbitplatform.com tls WS CDN vless § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6hC.nEWbiTplatfORm.coM",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "S6hc.NewBITPlATForM.com",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/gydbh8BquVe80zfWMNOapZMYk",
+        "headers": {
+          "Host": "s6hc.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6hc.newbitplatform.com tls WS CDN trojan § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6hC.nEWbitPLAtforM.COM",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "S6hc.nEwBitpLaTfORM.com",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/xueGC1HWMNOapZMYk",
+        "headers": {
+          "Host": "s6hc.newbitplatform.com"
+        },
+        "early_data_header_name": "Sec-WebSocket-Protocol"
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "s6hc.newbitplatform.com tls httpupgrade CDN vless § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "s6hc.neWBITPlATfOrM.CoM",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6HC.neWBITPLAtForm.cOM",
+        "alpn": "http/1.1",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "httpupgrade",
+        "path": "/gydbh8BquVe80zfmGzJdpigOw",
+        "headers": {
+          "Host": "s6hc.newbitplatform.com"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "xray",
+      "tag": "s6hc.newbitplatform.com tls splithttp CDN vless § 443 4",
+      "xray_outbound_raw": {
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "S6HC.nEWbiTpLatfoRm.cOM",
+              "port": 443,
+              "users": [
+                {
+                  "encryption": "none",
+                  "flow": "",
+                  "id": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6hc.newbitplatform.com",
+            "path": "/gydbh8BquVe80zfdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "http/1.1"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6HC.neWBitPLatform.CoM"
+          }
+        },
+        "tag": "s6hc.newbitplatform.com tls splithttp CDN vless"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-100",
+        "interval": "50-200",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "xray",
+      "tag": "s6hc.newbitplatform.com tls splithttp CDN trojan § 443 4",
+      "xray_outbound_raw": {
+        "protocol": "trojan",
+        "settings": {
+          "servers": [
+            {
+              "address": "S6hc.NewBitPlATFOrm.cOM",
+              "level": 8,
+              "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+              "port": 443
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6hc.newbitplatform.com",
+            "path": "/xueGC1HdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "http/1.1"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6HC.NewBItplATfOrm.cOm"
+          }
+        },
+        "tag": "s6hc.newbitplatform.com tls splithttp CDN trojan"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-100",
+        "interval": "50-200",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "vless",
+      "tag": "s6hc.newbitplatform.com tls grpc CDN vless § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "S6hC.NEwBitPLaTfORM.Com",
+      "server_port": 443,
+      "uuid": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "s6Hc.neWbiTpLaTfoRm.COM",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "gydbh8BquVe80zfh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "trojan",
+      "tag": "s6hc.newbitplatform.com tls grpc CDN trojan § 443 4",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
+      },
+      "server": "S6hC.newBITpLAtfORm.COm",
+      "server_port": 443,
+      "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+      "tls": {
+        "enabled": true,
+        "server_name": "S6hc.NEwbiTPLaTFOrM.coM",
+        "alpn": "h2",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "tls_tricks": {
+          "mixedcase_sni": true,
+          "padding_size": "50-200"
+        }
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "xueGC1Hh2T5wpds",
+        "idle_timeout": "1m55s",
+        "ping_timeout": "15s"
+      }
+    },
+    {
+      "type": "xray",
+      "tag": "s6hc.newbitplatform.com h3_quic splithttp CDN vless § 443 4",
+      "xray_outbound_raw": {
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "S6hC.nEWBitPlATform.COm",
+              "port": 443,
+              "users": [
+                {
+                  "encryption": "none",
+                  "flow": "",
+                  "id": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6hc.newbitplatform.com",
+            "path": "/gydbh8BquVe80zfdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h3"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "S6hC.newbItplatFORM.cOM"
+          }
+        },
+        "tag": "s6hc.newbitplatform.com h3_quic splithttp CDN vless"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
+    },
+    {
+      "type": "xray",
+      "tag": "s6hc.newbitplatform.com h3_quic splithttp CDN trojan § 443 4",
+      "xray_outbound_raw": {
+        "protocol": "trojan",
+        "settings": {
+          "servers": [
+            {
+              "address": "S6Hc.nEwbitPlATForm.COM",
+              "level": 8,
+              "password": "d24ab9af-c1c7-4183-a68d-4a708e45e9c9",
+              "port": 443
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "splithttp",
+          "security": "tls",
+          "splithttpSettings": {
+            "headers": {
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+            },
+            "host": "s6hc.newbitplatform.com",
+            "path": "/xueGC1HdFgwxg3fyR"
+          },
+          "tlsSettings": {
+            "allowInsecure": false,
+            "alpn": [
+              "h3"
+            ],
+            "fingerprint": "chrome",
+            "serverName": "s6hc.NEwBiTpLATFORM.CoM"
+          }
+        },
+        "tag": "s6hc.newbitplatform.com h3_quic splithttp CDN trojan"
+      },
+      "xray_fragment": {
+        "packets": "tlshello",
+        "length": "10-30",
+        "interval": "2-8",
+        "host1_header": "",
+        "host1_domain": "",
+        "host2_header": "",
+        "host2_domain": ""
+      },
+      "xray_loglevel": ""
     },
     {
       "type": "dns",
@@ -185,17 +1568,6 @@
     "rules": [
       {
         "rule_set": [
-          "geosite-ads",
-          "geosite-malware",
-          "geosite-phishing",
-          "geosite-cryptominers",
-          "geoip-malware",
-          "geoip-phishing"
-        ],
-        "outbound": "block"
-      },
-      {
-        "rule_set": [
           "geoip-ir",
           "geosite-ir"
         ],
@@ -216,10 +1588,6 @@
       {
         "clash_mode": "Global",
         "outbound": "select"
-      },
-      {
-        "geoip": "private",
-        "outbound": "bypass"
       }
     ],
     "rule_set": [
@@ -236,48 +1604,6 @@
         "format": "binary",
         "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/country/geosite-ir.srs",
         "update_interval": "120h0m0s"
-      },
-      {
-        "type": "remote",
-        "tag": "geosite-ads",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/block/geosite-category-ads-all.srs",
-        "update_interval": "120h0m0s"
-      },
-      {
-        "type": "remote",
-        "tag": "geosite-malware",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/block/geosite-malware.srs",
-        "update_interval": "120h0m0s"
-      },
-      {
-        "type": "remote",
-        "tag": "geosite-phishing",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/block/geosite-phishing.srs",
-        "update_interval": "120h0m0s"
-      },
-      {
-        "type": "remote",
-        "tag": "geosite-cryptominers",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/block/geosite-cryptominers.srs",
-        "update_interval": "120h0m0s"
-      },
-      {
-        "type": "remote",
-        "tag": "geoip-phishing",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/block/geoip-phishing.srs",
-        "update_interval": "120h0m0s"
-      },
-      {
-        "type": "remote",
-        "tag": "geoip-malware",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/hiddify/hiddify-geo/rule-set/block/geoip-malware.srs",
-        "update_interval": "120h0m0s"
       }
     ],
     "final": "select",
@@ -291,7 +1617,7 @@
     },
     "clash_api": {
       "external_controller": "127.0.0.1:16756",
-      "secret": "EuZS3MrA1NfnzFSH"
+      "secret": "Zp4xmOfg84boNXrX"
     }
   }
 }
